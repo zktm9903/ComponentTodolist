@@ -2,7 +2,7 @@ import Component from "../core/Component.js";
 import todoForm from "./todoForm.js"
 
 export default class todo extends Component {
-    $listCount = 0;
+    $listCount = 1;
 
   setup () {
     this.$state = { items: [] };
@@ -10,6 +10,8 @@ export default class todo extends Component {
 
   template () {
     const { items } = this.$state;
+
+    console.log(items);
 
     return `
         ${items.map(item => `
@@ -47,10 +49,13 @@ export default class todo extends Component {
         }
       })
 
-    // let removeBtn = document.getElementsByClassName('removeButton');
-    // removeBtn.addEventListener('click',function(){
+    let isthis = this;
 
-    // })
+    let removeBtn = document.getElementById('removeButton');
+
+    removeBtn.addEventListener('click',function(){
+        isthis.removeList();
+    })
 
     
   }
@@ -60,14 +65,13 @@ export default class todo extends Component {
     //console.log(doCheck);
     for (var i = 0; i < doCheck.length; i++) {
         let item = doCheck.item(i);
-        let a = this.changeDochk;
-
-        let todolists = this.$state;
+        let isthis = this;
+        //let todolists = this.$state;
         // item.setAttribute("class", "");
         item.addEventListener('click', function(){
             item.setAttribute("class", "");
             let getlist_ID = item.getAttribute("alt");
-            a(todolists, getlist_ID, 1);
+            isthis.changeDochk(getlist_ID, 1);
             // console.log(todolists)
             // for(var i=0;i<todolists.length;i++){
             //     console.log('1');
@@ -82,23 +86,30 @@ export default class todo extends Component {
       }
       
   }
-  changeDochk(todolists, list_ID, chk){
+  changeDochk(list_ID, chk){
 
+      for(let i=0;i<this.$state.items.length;i++){
 
-      for(let i=0;i<todolists.items.length;i++){
-          console.log(todolists.items[i])
-          if(list_ID == todolists.items[i].list_ID){
+          if(list_ID == this.$state.items[i].list_ID){
               if(chk == 1){
-                todolists.items[i].doChk = true;
+                this.$state.items[i].doChk = true;
               }
               else{
-                todolists.items[i].doChk = false;
+                this.$state.items[i].doChk = false;
               }
           }
       }
-      console.log(this.$state)
-      //this.$state = todolists;
-      console.log(items)
+
   }
   
+  removeList(){
+    const nowState = this.$state;
+    for(let i=0;i<nowState.items.length;i++){
+
+        if(nowState.items[i].doChk == true){
+            nowState.items.splice(i--,1);
+        }
+    }
+    this.setState(nowState);
+  }
 }

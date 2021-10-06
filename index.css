@@ -103,7 +103,7 @@ body{
 .checkImgOpacity{
     opacity: 0.5;
 }
-.removeButton{
+#removeButton{
     width: 50px;
 
 }

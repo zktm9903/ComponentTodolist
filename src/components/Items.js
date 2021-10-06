@@ -21,7 +21,7 @@ export default class Items extends Component {
 
     <div id="inputBox">
         <input type="text" name="toDotext" id="toDotext">
-        <img class="removeButton" src="./src/img/remove.png" onclick="removeList()">
+        <img id="removeButton" src="./src/img/remove.png">
     </div>
     `
   }
