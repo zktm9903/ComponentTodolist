@@ -69,9 +69,9 @@ export default class todo extends Component {
         //let todolists = this.$state;
         // item.setAttribute("class", "");
         item.addEventListener('click', function(){
-            item.setAttribute("class", "");
+            
             let getlist_ID = item.getAttribute("alt");
-            isthis.changeDochk(getlist_ID, 1);
+            isthis.changeDochk(getlist_ID, item);
             // console.log(todolists)
             // for(var i=0;i<todolists.length;i++){
             //     console.log('1');
@@ -86,17 +86,20 @@ export default class todo extends Component {
       }
       
   }
-  changeDochk(list_ID, chk){
+  changeDochk(list_ID, item){
 
       for(let i=0;i<this.$state.items.length;i++){
 
           if(list_ID == this.$state.items[i].list_ID){
-              if(chk == 1){
+              if(this.$state.items[i].doChk == false){
                 this.$state.items[i].doChk = true;
+                item.setAttribute("class", "");
               }
               else{
                 this.$state.items[i].doChk = false;
+                item.setAttribute("class", "checkImgOpacity");
               }
+              console.log(this.$state)
           }
       }
 
